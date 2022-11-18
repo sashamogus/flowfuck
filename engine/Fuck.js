@@ -3,6 +3,9 @@ import { Direction } from "./Direction.js";
 const MEMORY_SIZE = 256;
 const MEMORY_MASK = 0xff;
 
+const DIRECTION_INPUT = Direction.left;
+const DIRECTION_PROGRAM = Direction.up;
+
 export default class Fuck {
     constructor() {
         this.memory = [];
@@ -21,10 +24,10 @@ export default class Fuck {
     update(block) {
         block.eaten.forEach((p) => {
             switch (p.direction) {
-                case Direction.left:
+                case DIRECTION_INPUT:
                     this.input = p.char;
                     break;
-                case Direction.down:
+                case DIRECTION_PROGRAM:
                     this.program.push(p.char);
                     break;
             }
@@ -121,11 +124,11 @@ export default class Fuck {
             }
             this.program_ptr++;
         } else {
-            block.eat_direction.push(Direction.down);
+            block.eat_direction.push(DIRECTION_PROGRAM);
         }
 
         if (this.input == "") {
-            block.eat_direction.push(Direction.left);
+            block.eat_direction.push(DIRECTION_INPUT);
         }
     }
 }
