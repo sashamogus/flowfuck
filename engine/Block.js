@@ -90,7 +90,7 @@ export default class Block {
         }
         if (this.output == true) {
             this.eaten.forEach((p) => {
-                this.flowcore += p.char;
+                this.flowcore.output += p.char;
             });
         }
         if (this.eater == true) {
