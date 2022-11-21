@@ -13,6 +13,8 @@ export default class Block {
         this.eat_direction = [];
         this.eaten = [];
         this.fuck = null;
+        this.input = false;
+        this.output = false;
         this.flow = Direction.none;
         switch (char.toLowerCase()) {
             case " ":
@@ -48,6 +50,19 @@ export default class Block {
                 this.eat_direction = [];
                 this.fuck = new Fuck();
                 break;
+            case "i":
+                this.input = true;
+                break;
+            case "o":
+                this.eater = true;
+                this.eat_direction = [
+                    Direction.left,
+                    Direction.right,
+                    Direction.down,
+                    Direction.up,
+                ];
+                this.output = true;
+                break;
         }
     }
 
@@ -63,6 +78,20 @@ export default class Block {
     update() {
         if (this.fuck != null) {
             this.fuck.update(this);
+        }
+        if (this.input == true) {
+            if (this.flowcore.input.length > 0) {
+                if (
+                    this.create_particle(this.flowcore.input[0], Direction.left)
+                ) {
+                    this.flowcore.input = this.flowcore.input.substr(1);
+                }
+            }
+        }
+        if (this.output == true) {
+            this.eaten.forEach((p) => {
+                this.flowcore += p.char;
+            });
         }
         if (this.eater == true) {
             this.eaten = [];

@@ -3,7 +3,7 @@ import Particle from "./Particle.js";
 import { Direction, dmap } from "./Direction.js";
 
 export default class FlowCore {
-    constructor(text) {
+    constructor(text, input = "") {
         var lines = text.split("\n");
         this.H = lines.length;
         this.W = -1;
@@ -50,6 +50,8 @@ export default class FlowCore {
             this.blocks[i] = b_row;
             this.particles[i] = p_row;
         }
+        this.input = input;
+        this.output = "";
     }
 
     render() {
